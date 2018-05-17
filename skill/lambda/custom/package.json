@@ -1,0 +1,37 @@
+{
+  "name": "alexa-jarajara-node",
+  "version": "1.1.1",
+  "description": "alexa jarajara skill",
+  "main": "./dist/src",
+  "types": "./dist/src",
+  "scripts": {
+    "build": "rm -rf ./dist && $(npm bin)/tsc",
+    "lint": "$(npm bin)/tslint --project .",
+    "test": "$(npm bin)/istanbul cover $(npm bin)/_mocha --recursive $(find ./dist/test -name '*.test.js')"
+  },
+  "author": "Daisuke Araki",
+  "contributors": [],
+  "dependencies": {
+    "alexa-sdk": "^1.0.0",
+    "config": "^1.29.2",
+    "log4js": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/alexa-sdk": "^1.1.1",
+    "@types/aws-lambda": "0.0.34",
+    "@types/config": "0.0.33",
+    "@types/mocha": "^5.0.0",
+    "@types/node": "^9.6.2",
+    "@types/power-assert": "^1.4.29",
+    "@types/sinon": "^4.1.3",
+    "alexa-conversation": "^0.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.0",
+    "moq.ts": "^2.5.2",
+    "power-assert": "^1.4.4",
+    "sinon": "^4.2.2",
+    "tslint": "^5.9.1",
+    "tslint-microsoft-contrib": "^5.0.3",
+    "typescript": "^2.8.1"
+  }
+}

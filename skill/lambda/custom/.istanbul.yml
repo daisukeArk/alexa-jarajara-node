@@ -1,0 +1,12 @@
+instrumentation:
+    root: '.'
+    excludes: [
+      "**/domains/**",
+      "**/enums/**",
+      "**/factories/**",
+      "**/**/index.*"
+    ]
+    include-all-sources: true
+reporting:
+    print: both
+    dir: ./coverage

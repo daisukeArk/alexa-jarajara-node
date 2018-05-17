@@ -1,0 +1,40 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "ja-JP": {
+          "summary": "麻雀の符計算した点数を教えてくれます。",
+          "examplePhrases": [
+            "アレクサ、じゃらじゃらを開いて",
+            "親の２０符４翻の点数を教えて",
+            "アレクサ、じゃらじゃらで子の３０符２翻の点数を調べて"
+          ],
+          "keywords": [
+            "麻雀",
+            "マージャン",
+            "符計算",
+            "点数計算"
+          ],
+          "name": "じゃらじゃら　符計算",
+          "smallIconUri": "",
+          "description": "麻雀の符計算した点数を教えてくれます。\n「アレクサ、じゃらじゃらで親の２０符（プ）４翻（ハン）の点数を教えて」と話しかけると符計算した点数を教えてくれます。",
+          "largeIconUri": ""
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "",
+      "category": "CALCULATORS",
+      "distributionCountries": [
+        "JP"
+      ]
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sourceDir": "lambda/custom"
+        }
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}

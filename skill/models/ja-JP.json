@@ -1,0 +1,423 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "じゃらじゃら",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "CalculatePointIntent",
+          "slots": [
+            {
+              "name": "Role",
+              "type": "RoleType",
+              "samples": [
+                "{Role}",
+                "{Role} です"
+              ]
+            },
+            {
+              "name": "Fu",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "{Fu} プ",
+                "{Fu} フ",
+                "{Fu} 符",
+                "{Fu}"
+              ]
+            },
+            {
+              "name": "Han",
+              "type": "HanNumber",
+              "samples": [
+                "{Han} パン",
+                "{Han} ハン",
+                "{Han} 翻",
+                "{Han}"
+              ]
+            }
+          ],
+          "samples": [
+            "点数",
+            "点数教えて",
+            "点数を教えて",
+            "点数調べて",
+            "点数を調べて",
+            "点数が知りたい",
+            "{Role} の {Fu} 符 {Han} 翻",
+            "{Role} の {Fu} プ {Han} パン",
+            "{Role} の {Fu} フ {Han} パン",
+            "{Role} の {Fu} プ {Han} ハン",
+            "{Role} の {Fu} フ {Han} ハン",
+            "{Role} の {Fu} 符 {Han} 翻が知りたい",
+            "{Role} の {Fu} プ {Han} パンが知りたい",
+            "{Role} の {Fu} フ {Han} パンが知りたい",
+            "{Role} の {Fu} プ {Han} ハンが知りたい",
+            "{Role} の {Fu} フ {Han} ハンが知りたい",
+            "{Role} の {Fu} 符 {Han} 翻教えて",
+            "{Role} の {Fu} プ {Han} パン教えて",
+            "{Role} の {Fu} フ {Han} パン教えて",
+            "{Role} の {Fu} プ {Han} ハン教えて",
+            "{Role} の {Fu} フ {Han} ハン教えて",
+            "{Role} の {Fu} 符 {Han} 翻を教えて",
+            "{Role} の {Fu} プ {Han} パンを教えて",
+            "{Role} の {Fu} フ {Han} パンを教えて",
+            "{Role} の {Fu} プ {Han} ハンを教えて",
+            "{Role} の {Fu} フ {Han} ハンを教えて",
+            "{Role} の {Fu} 符 {Han} 翻調べて",
+            "{Role} の {Fu} プ {Han} パン調べて",
+            "{Role} の {Fu} フ {Han} パン調べて",
+            "{Role} の {Fu} プ {Han} ハン調べて",
+            "{Role} の {Fu} フ {Han} ハン調べて",
+            "{Role} の {Fu} 符 {Han} 翻を調べて",
+            "{Role} の {Fu} プ {Han} パンを調べて",
+            "{Role} の {Fu} フ {Han} パンを調べて",
+            "{Role} の {Fu} プ {Han} ハンを調べて",
+            "{Role} の {Fu} フ {Han} ハンを調べて",
+            "{Role} の {Fu} 符 {Han} 翻の点数",
+            "{Role} の {Fu} プ {Han} パンの点数",
+            "{Role} の {Fu} フ {Han} パンの点数",
+            "{Role} の {Fu} プ {Han} ハンの点数",
+            "{Role} の {Fu} フ {Han} ハンの点数",
+            "{Role} の {Fu} 符 {Han} 翻の点数教えて",
+            "{Role} の {Fu} プ {Han} パンの点数教えて",
+            "{Role} の {Fu} フ {Han} パンの点数教えて",
+            "{Role} の {Fu} プ {Han} ハンの点数教えて",
+            "{Role} の {Fu} フ {Han} ハンの点数教えて",
+            "{Role} の {Fu} 符 {Han} 翻の点数を教えて",
+            "{Role} の {Fu} プ {Han} パンの点数を教えて",
+            "{Role} の {Fu} フ {Han} パンの点数を教えて",
+            "{Role} の {Fu} プ {Han} ハンの点数を教えて",
+            "{Role} の {Fu} フ {Han} ハンの点数を教えて",
+            "{Role} の {Fu} 符 {Han} 翻の点数調べて",
+            "{Role} の {Fu} プ {Han} パンの点数調べて",
+            "{Role} の {Fu} フ {Han} パンの点数調べて",
+            "{Role} の {Fu} プ {Han} ハンの点数調べて",
+            "{Role} の {Fu} フ {Han} ハンの点数調べて",
+            "{Role} の {Fu} 符 {Han} 翻の点数を調べて",
+            "{Role} の {Fu} プ {Han} パンの点数を調べて",
+            "{Role} の {Fu} フ {Han} パンの点数を調べて",
+            "{Role} の {Fu} プ {Han} ハンの点数を調べて",
+            "{Role} の {Fu} フ {Han} ハンの点数を調べて",
+            "{Role} の {Fu} 符 {Han} 翻は",
+            "{Role} の {Fu} プ {Han} パンは",
+            "{Role} の {Fu} フ {Han} パンは",
+            "{Role} の {Fu} プ {Han} ハンは",
+            "{Role} の {Fu} フ {Han} ハンは",
+            "{Role} の {Fu} 符 {Han} 翻はいくつ",
+            "{Role} の {Fu} プ {Han} パンはいくつ",
+            "{Role} の {Fu} フ {Han} パンはいくつ",
+            "{Role} の {Fu} プ {Han} ハンはいくつ",
+            "{Role} の {Fu} フ {Han} ハンはいくつ",
+            "{Role} の {Fu} 符 {Han} 翻はいくら",
+            "{Role} の {Fu} プ {Han} パンはいくら",
+            "{Role} の {Fu} フ {Han} パンはいくら",
+            "{Role} の {Fu} プ {Han} ハンはいくら",
+            "{Role} の {Fu} フ {Han} ハンはいくら",
+            "{Fu} 符 {Han} 翻を {Role} で",
+            "{Fu} プ {Han} パンを {Role} で",
+            "{Fu} フ {Han} パンを {Role} で",
+            "{Fu} プ {Han} ハンを {Role} で",
+            "{Fu} フ {Han} ハンを {Role} で",
+            "{Fu} 符 {Han} 翻の {Role} が知りたい",
+            "{Fu} プ {Han} パンの {Role} が知りたい",
+            "{Fu} フ {Han} パンの {Role} が知りたい",
+            "{Fu} プ {Han} ハンの {Role} が知りたい",
+            "{Fu} フ {Han} ハンの {Role} が知りたい",
+            "{Fu} 符 {Han} 翻の {Role} 教えて",
+            "{Fu} プ {Han} パンの {Role} 教えて",
+            "{Fu} フ {Han} パンの {Role} 教えて",
+            "{Fu} プ {Han} ハンの {Role} 教えて",
+            "{Fu} フ {Han} ハンの {Role} 教えて",
+            "{Fu} 符 {Han} 翻の {Role} を教えて",
+            "{Fu} プ {Han} パンの {Role} を教えて",
+            "{Fu} フ {Han} パンの {Role} を教えて",
+            "{Fu} プ {Han} ハンの {Role} を教えて",
+            "{Fu} フ {Han} ハンの {Role} を教えて",
+            "{Fu} 符 {Han} 翻の {Role} 調べて",
+            "{Fu} プ {Han} パンの {Role} 調べて",
+            "{Fu} フ {Han} パンの {Role} 調べて",
+            "{Fu} プ {Han} ハンの {Role} 調べて",
+            "{Fu} フ {Han} ハンの {Role} 調べて",
+            "{Fu} 符 {Han} 翻の {Role} を調べて",
+            "{Fu} プ {Han} パンの {Role} を調べて",
+            "{Fu} フ {Han} パンの {Role} を調べて",
+            "{Fu} プ {Han} ハンの {Role} を調べて",
+            "{Fu} フ {Han} ハンの {Role} を調べて",
+            "{Fu} 符 {Han} 翻の {Role} の点数",
+            "{Fu} プ {Han} パンの {Role} の点数",
+            "{Fu} フ {Han} パンの {Role} の点数",
+            "{Fu} プ {Han} ハンの {Role} の点数",
+            "{Fu} フ {Han} ハンの {Role} の点数",
+            "{Fu} 符 {Han} 翻の {Role} の点数教えて",
+            "{Fu} プ {Han} パンの {Role} の点数教えて",
+            "{Fu} フ {Han} パンの {Role} の点数教えて",
+            "{Fu} プ {Han} ハンの {Role} の点数教えて",
+            "{Fu} フ {Han} ハンの {Role} の点数教えて",
+            "{Fu} 符 {Han} 翻の {Role} の点数を教えて",
+            "{Fu} プ {Han} パンの {Role} の点数を教えて",
+            "{Fu} フ {Han} パンの {Role} の点数を教えて",
+            "{Fu} プ {Han} ハンの {Role} の点数を教えて",
+            "{Fu} フ {Han} ハンの {Role} の点数を教えて",
+            "{Fu} 符 {Han} 翻の {Role} の点数調べて",
+            "{Fu} プ {Han} パンの {Role} の点数調べて",
+            "{Fu} フ {Han} パンの {Role} の点数調べて",
+            "{Fu} プ {Han} ハンの {Role} の点数調べて",
+            "{Fu} フ {Han} ハンの {Role} の点数調べて",
+            "{Fu} 符 {Han} 翻の {Role} の点数を調べて",
+            "{Fu} プ {Han} パンの {Role} の点数を調べて",
+            "{Fu} フ {Han} パンの {Role} の点数を調べて",
+            "{Fu} プ {Han} ハンの {Role} の点数を調べて",
+            "{Fu} フ {Han} ハンの {Role} の点数を調べて",
+            "{Fu} 符 {Han} 翻の {Role} は",
+            "{Fu} プ {Han} パンの {Role} は",
+            "{Fu} フ {Han} パンの {Role} は",
+            "{Fu} プ {Han} ハンの {Role} は",
+            "{Fu} フ {Han} ハンの {Role} は",
+            "{Fu} 符 {Han} 翻の {Role} はいくつ",
+            "{Fu} プ {Han} パンの {Role} はいくつ",
+            "{Fu} フ {Han} パンの {Role} はいくつ",
+            "{Fu} プ {Han} ハンの {Role} はいくつ",
+            "{Fu} フ {Han} ハンの {Role} はいくつ",
+            "{Fu} 符 {Han} 翻の {Role} はいくら",
+            "{Fu} プ {Han} パンの {Role} はいくら",
+            "{Fu} フ {Han} パンの {Role} はいくら",
+            "{Fu} プ {Han} ハンの {Role} はいくら",
+            "{Fu} フ {Han} ハンの {Role} はいくら"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "id": "13",
+              "name": {
+                "value": "ジュウサン",
+                "synonyms": [
+                  "ニジュウ",
+                  "ジュウク",
+                  "ジュウハチ",
+                  "ジュウシチ",
+                  "ジュウロク",
+                  "ジュウゴ",
+                  "ジュウヨン"
+                ]
+              }
+            },
+            {
+              "id": "12",
+              "name": {
+                "value": "ジュウニ"
+              }
+            },
+            {
+              "id": "11",
+              "name": {
+                "value": "ジュウイチ",
+                "synonyms": [
+                  "ジュウイッ"
+                ]
+              }
+            },
+            {
+              "id": "10",
+              "name": {
+                "value": "ジュウ",
+                "synonyms": [
+                  "ジュッ"
+                ]
+              }
+            },
+            {
+              "id": "9",
+              "name": {
+                "value": "チュウ",
+                "synonyms": [
+                  "ク",
+                  "キュウ"
+                ]
+              }
+            },
+            {
+              "id": "8",
+              "name": {
+                "value": "パー",
+                "synonyms": [
+                  "ハッ",
+                  "ハチ"
+                ]
+              }
+            },
+            {
+              "id": "7",
+              "name": {
+                "value": "チー",
+                "synonyms": [
+                  "シチ",
+                  "ナナ"
+                ]
+              }
+            },
+            {
+              "id": "6",
+              "name": {
+                "value": "リュウ",
+                "synonyms": [
+                  "ロク",
+                  "ロッ",
+                  "ロー"
+                ]
+              }
+            },
+            {
+              "id": "5",
+              "name": {
+                "value": "ウー",
+                "synonyms": [
+                  "ゴ"
+                ]
+              }
+            },
+            {
+              "id": "4",
+              "name": {
+                "value": "スー",
+                "synonyms": [
+                  "ヨン"
+                ]
+              }
+            },
+            {
+              "id": "3",
+              "name": {
+                "value": "サン"
+              }
+            },
+            {
+              "id": "2",
+              "name": {
+                "value": "リャン",
+                "synonyms": [
+                  "ニ"
+                ]
+              }
+            },
+            {
+              "id": "1",
+              "name": {
+                "value": "イー",
+                "synonyms": [
+                  "イッ",
+                  "イチ"
+                ]
+              }
+            }
+          ],
+          "name": "HanNumber"
+        },
+        {
+          "values": [
+            {
+              "id": "2",
+              "name": {
+                "value": "子"
+              }
+            },
+            {
+              "id": "1",
+              "name": {
+                "value": "親"
+              }
+            }
+          ],
+          "name": "RoleType"
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "CalculatePointIntent",
+          "confirmationRequired": false,
+          "slots": [
+            {
+              "name": "Role",
+              "type": "RoleType",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Role"
+              }
+            },
+            {
+              "name": "Fu",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Fu"
+              }
+            },
+            {
+              "name": "Han",
+              "type": "HanNumber",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Han"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Fu",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "ナンフですか？"
+          },
+          {
+            "type": "PlainText",
+            "value": "フはいくつですか？"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Han",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "ハンはいくつですか？"
+          },
+          {
+            "type": "PlainText",
+            "value": "ナンハンですか？"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.Intent-CalculatePoint.IntentSlot-Role",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "親ですか？子ですか？"
+          }
+        ]
+      }
+    ]
+  }
+}
