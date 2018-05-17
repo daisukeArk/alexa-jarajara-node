@@ -7,13 +7,7 @@
     "noImplicitAny": true,
     "alwaysStrict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
-      "alexa-conversation": [
-        "./mytypes/alexa-conversation"
-      ]
-    },
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src/**/*",
