@@ -1,0 +1,29 @@
+@startuml じゃらじゃら
+
+actor "ユーザ" as User
+
+User -> Alexa: じゃらじゃらを開いて
+
+User <-- Alexa: 点数を教えてと、言ってください
+
+note left User
+  役割、符、翻を指定しない場合
+end note
+
+User -> Alexa: 点数を教えて
+
+User <-- Alexa: 親ですか？子ですか？
+
+User -> Alexa: 子
+
+User <-- Alexa: 何符ですか？
+
+User -> Alexa: 20符
+
+User <-- Alexa: 何翻ですか？
+
+User -> Alexa: リャンハン
+
+User <-- Alexa: 20符2翻の点数は、ツモは親が500点、子が300点です。
+
+@enduml
