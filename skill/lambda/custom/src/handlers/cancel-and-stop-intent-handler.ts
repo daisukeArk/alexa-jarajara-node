@@ -1,31 +1,35 @@
-import * as Alexa from 'alexa-sdk';
+import * as Ask from 'ask-sdk-core';
+import { createUtterance } from '../factories/utterance-factory';
 import { StopUtterance as Utterance } from '../utterances/stop-utterance';
-import { IntentBase } from './intent-base';
 
 /**
- * 停止 インテントクラス
+ * 停止 インテントハンドラ
  */
-export class StopIntent extends IntentBase<Utterance> {
+export const CancelAndStopIntentHandler: Ask.RequestHandler = {
   /**
-   * コンストラクタ
+   * 実行判定
+   * @param handlerInput ハンドラ
    */
-  constructor(utterance: Utterance) {
-    super(utterance);
-  }
-
+  canHandle(handlerInput) {
+    return (
+      handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      (
+        handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent' ||
+        handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+      )
+    );
+  },
   /**
-   * アクション
-   * @param context ハンドラコンテキスト
+   * ハンドラ実行
+   * @param handlerInput ハンドラ
    */
-  public execute(context: Alexa.Handler<any>) {
+  handle(handlerInput) {
     // 発話取得
-    const result = this.utterance.respond(context);
+    const speechOutput = createUtterance(Utterance).respond(handlerInput);
 
-    // レスポンス設定
-    context.response
-      .speak(result.speech);
-
-    // レスポンス生成
-    context.emit(':responseReady');
+    // レスポンス
+    return handlerInput.responseBuilder
+      .speak(speechOutput.speech)
+      .getResponse();
   }
-}
+};
