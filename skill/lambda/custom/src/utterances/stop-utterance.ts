@@ -1,5 +1,5 @@
-import * as Alexa from 'alexa-sdk';
-import { IUtteranceResult } from '../domains/utterance-result';
+import * as Ask from 'ask-sdk-core';
+import { IStopSpeechOutput as ISpeechOutput } from './domains/stop-speech-output';
 import { UtteranceBase } from './utterance-base';
 
 /**
@@ -15,12 +15,14 @@ export class StopUtterance extends UtteranceBase {
 
   /**
    * 発話内容取得
-   * @param context ハンドラコンテキスト
-   * @returns 発話結果
+   * @param handlerInput ハンドラコンテキスト
+   * @returns 発話内容
    */
-  public respond(context: Alexa.Handler<any>): IUtteranceResult {
+  public respond(handlerInput: Ask.HandlerInput): ISpeechOutput {
+    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+
     return {
-      speech: <any>context.t('GOOD_BYE')
+      speech: requestAttributes.t('GOOD_BYE')
     };
   }
 }
