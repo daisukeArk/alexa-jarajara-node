@@ -1,13 +1,14 @@
-import * as conversation from 'alexa-conversation';
+import { IConversationCondition } from 'alexa-conversation-model-assert';
 import * as App from '../src/index';
 
 /**
  * alexa-conversationパラメータ
  */
-export const options: any = {
-  name: 'jara-jara',
-  app: App,
-  appId: 'amzn1.ask.skill.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-  locale: 'ja-JP',
-  fixSpaces: true
+export const options: IConversationCondition = {
+  handler: App.handler,
+  request: {
+    locale: 'ja-JP'
+  },
+  testDescription: 'jara-jara',
+  isEnabledTrace: true
 };
