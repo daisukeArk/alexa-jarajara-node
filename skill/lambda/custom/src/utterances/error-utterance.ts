@@ -1,11 +1,11 @@
 import * as Ask from 'ask-sdk-core';
-import { IUnhandledSpeechOutput as ISpeechOutput } from './domains/unhandled-speech-output';
+import { IErrorSpeechOutput as ISpeechOutput } from './domains/error-speech-output';
 import { UtteranceBase } from './utterance-base';
 
 /**
  * 未ハンドル 発話クラス
  */
-export class UnHandledUtterance extends UtteranceBase {
+export class ErrorUtterance extends UtteranceBase {
   /**
    * コンストラクタ
    */
