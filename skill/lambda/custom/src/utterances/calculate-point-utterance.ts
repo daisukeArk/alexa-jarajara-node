@@ -42,21 +42,23 @@ export class CalculatePointUtterance extends UtteranceBase {
 
       speech += requestAttributes.t(
         'ANSWER',
-        responseFu,
-        result.fu,
-        toHanKana(result.han),
-        result.han
+        {
+          fuAlias: responseFu,
+          fu: result.fu,
+          hanAlias: toHanKana(result.han),
+          han: result.han
+        }
       );
 
       if (roleType === Enums.RoleTypes.Parent) {
-        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', result.basePointParent);
+        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', { point: result.basePointParent });
         if (result.ronPointParent > 0) {
-          speech += requestAttributes.t('ANSWER_LON', result.ronPointParent);
+          speech += requestAttributes.t('ANSWER_LON', { point: result.ronPointParent });
         }
       } else {
-        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', result.basePointParent, result.basePoint);
+        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', { pointParent: result.basePointParent, pointChildren: result.basePoint });
         if (result.ronPoint > 0) {
-          speech += requestAttributes.t('ANSWER_LON', result.ronPoint);
+          speech += requestAttributes.t('ANSWER_LON', { point: result.ronPoint });
         }
       }
     } else {
@@ -64,20 +66,22 @@ export class CalculatePointUtterance extends UtteranceBase {
 
       speech += requestAttributes.t(
         'ANSWER_LIMIT',
-        responseFu,
-        result.fu,
-        toHanKana(result.han),
-        result.han,
-        Enums.LimitRuleTypes.toNameKana(result.limitRuleType),
-        Enums.LimitRuleTypes.toNameKanji(result.limitRuleType)
+        {
+          fuAlias: responseFu,
+          fu: result.fu,
+          hanAlias: toHanKana(result.han),
+          han: result.han,
+          limitRuleAlias: Enums.LimitRuleTypes.toNameKana(result.limitRuleType),
+          limitRule: Enums.LimitRuleTypes.toNameKanji(result.limitRuleType)
+        }
       );
 
       if (roleType === Enums.RoleTypes.Parent) {
-        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', result.basePointParent);
-        speech += requestAttributes.t('ANSWER_LON', result.ronPointParent);
+        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', { point: result.basePointParent });
+        speech += requestAttributes.t('ANSWER_LON', { point: result.ronPointParent });
       } else {
-        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', result.basePointParent, result.basePoint);
-        speech += requestAttributes.t('ANSWER_LON', result.ronPoint);
+        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', { pointParent: result.basePointParent, pointChildren: result.basePoint });
+        speech += requestAttributes.t('ANSWER_LON', { point: result.ronPoint });
       }
     }
 
