@@ -1,5 +1,5 @@
-import * as Alexa from 'alexa-sdk';
-import { IUtteranceResult } from '../domains/utterance-result';
+import * as Ask from 'ask-sdk-core';
+import { ISpeechOutputBase } from './domains/speech-output-base';
 
 /**
  * 発話基底クラス
@@ -13,8 +13,8 @@ export abstract class UtteranceBase {
 
   /**
    * レスポンス生成
-   * @param context Alexaハンドラコンテキスト
+   * @param handlerInput ハンドラコンテキスト
    * @param args 引数
    */
-  public abstract respond(context: Alexa.Handler<any>, ...args: any[]): IUtteranceResult;
+  public abstract respond(handlerInput: Ask.HandlerInput, ...args: any[]): ISpeechOutputBase;
 }
