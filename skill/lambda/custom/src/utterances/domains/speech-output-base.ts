@@ -1,7 +1,7 @@
 /**
- * 発話結果
+ * 発話基底インタフェース
  */
-export interface IUtteranceResult {
+export interface ISpeechOutputBase {
   /**
    * 初回の発話
    */
@@ -11,6 +11,11 @@ export interface IUtteranceResult {
    * 追加の発話
    */
   repromptSpeech?: any;
+
+  /**
+   * カードタイトル
+   */
+  cardTitle?: string;
 
   /**
    * カード内容
