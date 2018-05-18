@@ -1,57 +1,30 @@
-import * as Alexa from 'alexa-sdk';
-import { IntentFactory } from '../factories/intent-factory';
-import * as HandlerMethodTypes from './handler-method-type';
+import * as Ask from 'ask-sdk-core';
+import { createUtterance } from '../factories/utterance-factory';
+import { LaunchRequestUtterance as Utterance } from '../utterances/launch-request-utterance';
 
 /**
- * ハンドラ
+ * 起動リクエストハンドラ
  */
-export const handler: HandlerMethodTypes.defaultHandlerType = {
+export const LaunchRequestHandler: Ask.RequestHandler = {
   /**
-   * 起動リクエスト インテント
-   * @param this ハンドラコンテキスト
+   * 実行判定
+   * @param handlerInput ハンドラ
    */
-  LaunchRequest(this: Alexa.Handler<any>): void {
-    // レスポンス設定
-    this.response
-      .speak(<any>this.t('WELCOME'))
-      .listen(<any>this.t('HELP_MESSAGE'));
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+  },
+  /**
+   * ハンドラ実行
+   * @param handlerInput ハンドラ
+   */
+  handle(handlerInput) {
+    // 発話取得
+    const speechOutput = createUtterance(Utterance).respond(handlerInput);
 
-    // レスポンス生成
-    this.emit(':responseReady');
-  },
-  /**
-   * 点数計算 インテント
-   * @param this ハンドラコンテキスト
-   */
-  CalculatePointIntent(this: Alexa.Handler<any>): void {
-    IntentFactory.CalculatePointIntent.execute(this);
-  },
-  /**
-   * ヘルプ インテント
-   * @param this ハンドラコンテキスト
-   */
-  'AMAZON.HelpIntent'(this: Alexa.Handler<any>): void {
-    IntentFactory.HelpIntent.execute(this);
-  },
-  /**
-   * キャンセル インテント
-   * @param this ハンドラコンテキスト
-   */
-  'AMAZON.CancelIntent'(this: Alexa.Handler<any>): void {
-    IntentFactory.StopIntent.execute(this);
-  },
-  /**
-   * 停止 インテント
-   * @param this ハンドラコンテキスト
-   */
-  'AMAZON.StopIntent'(this: Alexa.Handler<any>): void {
-    IntentFactory.StopIntent.execute(this);
-  },
-  /**
-   * 未ハンドル インテント
-   * @param this ハンドラコンテキスト
-   */
-  Unhandled(this: Alexa.Handler<any>): void {
-    IntentFactory.UnHandledIntent.execute(this);
+    // レスポンス
+    return handlerInput.responseBuilder
+      .speak(speechOutput.speech)
+      .reprompt(speechOutput.repromptSpeech)
+      .getResponse();
   }
 };
