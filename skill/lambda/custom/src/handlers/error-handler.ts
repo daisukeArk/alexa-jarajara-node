@@ -1,32 +1,37 @@
-import * as Alexa from 'alexa-sdk';
-import { UnHandledUtterance as Utterance } from '../utterances/unhandled-utterance';
-import { IntentBase } from './intent-base';
+import * as Ask from 'ask-sdk-core';
+import * as Util from 'util';
+import { createUtterance } from '../factories/utterance-factory';
+import { LoggerFactory } from '../helpers/logger-factory';
+import { ErrorUtterance as Utterance } from '../utterances/error-utterance';
 
 /**
- * 未ハンドル インテントクラス
+ * エラーハンドラ
  */
-export class UnHandledIntent extends IntentBase<Utterance> {
+export const ErrorHandler: Ask.ErrorHandler = {
   /**
-   * コンストラクタ
+   * 実行判定
+   * @param handlerInput ハンドラ
+   * @param error エラー
    */
-  constructor(utterance: Utterance) {
-    super(utterance);
-  }
-
+  canHandle(handlerInput: Ask.HandlerInput, error: Error) {
+    return true;
+  },
   /**
-   * アクション
-   * @param context ハンドラコンテキスト
+   * ハンドラ実行
+   * @param handlerInput ハンドラ
+   * @param error エラー
    */
-  public execute(context: Alexa.Handler<any>) {
+  handle(handlerInput: Ask.HandlerInput, error: Error) {
     // 発話取得
-    const result = this.utterance.respond(context);
+    const speechOutput = createUtterance(Utterance).respond(handlerInput);
 
-    // レスポンス設定
-    context.response
-      .speak(result.speech)
-      .listen(result.repromptSpeech);
+    // ログ出力
+    LoggerFactory.instance.error(String(error.stack));
 
-    // レスポンス生成
-    context.emit(':responseReady');
+    // レスポンス
+    return handlerInput.responseBuilder
+      .speak(speechOutput.speech)
+      .reprompt(speechOutput.repromptSpeech)
+      .getResponse();
   }
-}
+};
