@@ -135,9 +135,9 @@ export class CalculateService {
    */
   private calculateBasePoint(fu: number, han: number): number {
     // 定数
-    const Bazoro: number = 2 ** 2;
+    const Bazoro: number = Math.pow(2, 2) ;
 
-    return fu * Bazoro * (2 ** han);
+    return fu * Bazoro * (Math.pow(2, han));
   }
 
   /**
