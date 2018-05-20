@@ -17,4 +17,5 @@ export const handler = Ask.SkillBuilders.custom()
 .addErrorHandlers(
   Handlers.ErrorHandler
 )
+.withSkillId(String(process.env.ALEXA_SKILL_ID))
 .lambda();
