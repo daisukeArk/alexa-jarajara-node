@@ -6,9 +6,10 @@ import * as App from '../src/index';
  */
 export const options: IConversationCondition = {
   handler: App.handler,
+  skillId: 'amzn1.ask.skill.xxxxx',
   request: {
     locale: 'ja-JP'
   },
   testDescription: 'jara-jara',
-  isEnabledTrace: true
+  isEnabledTrace: false
 };
