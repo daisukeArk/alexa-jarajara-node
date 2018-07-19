@@ -1,11 +1,11 @@
-import { IHelpSpeechOutput as ISpeechOutput } from './domains/help-speech-output';
+import { IErrorSpeechOutput as ISpeechOutput } from './domains/error-speech-output';
 import { ILanguageStrings } from './language-strings';
 import { UtteranceBase } from './utterance-base';
 
 /**
- * ヘルプ 発話クラス
+ * 未ハンドル 発話クラス
  */
-export class HelpUtterance extends UtteranceBase {
+export class UnhandledUtterance extends UtteranceBase {
   /**
    * コンストラクタ
    * @param languageStrings 発話セット
@@ -20,7 +20,7 @@ export class HelpUtterance extends UtteranceBase {
    */
   public respond(): ISpeechOutput {
     return {
-      speech: this.languageStrings.ja.HELP_MESSAGE + this.languageStrings.ja.HELP_FU_NUMBER + this.languageStrings.ja.HELP_HAN_NUMBER,
+      speech: this.languageStrings.ja.UNHANDLED_MESSAGE + this.languageStrings.ja.HELP_MESSAGE,
       repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
     };
   }

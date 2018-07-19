@@ -1,5 +1,1 @@
-import { CommonInterceptor } from './common-interceptor';
-
-export {
-  CommonInterceptor
-};
+export { CommonInterceptor } from './common-interceptor';

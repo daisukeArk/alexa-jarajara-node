@@ -7,11 +7,12 @@ import * as Interceptors from './interceptors';
  */
 export const handler = Ask.SkillBuilders.custom()
 .addRequestHandlers(
-  Handlers.CalculatePointIntentHandler,
+  Handlers.LaunchRequestHandler,
+  Handlers.SessionEndedRequestHandler,
   Handlers.CancelAndStopIntentHandler,
   Handlers.HelpIntentHandler,
-  Handlers.LaunchRequestHandler,
-  Handlers.SessionEndedRequestHandler
+  Handlers.CalculatePointIntentHandler,
+  Handlers.UnhandledHandler
 )
 .addRequestInterceptors(Interceptors.CommonInterceptor)
 .addErrorHandlers(

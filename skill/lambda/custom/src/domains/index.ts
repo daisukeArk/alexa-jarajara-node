@@ -1,5 +1,1 @@
-import { ICalculateResult } from './calculate-result';
-
-export {
-  ICalculateResult
-};
+export { ICalculateResult } from './calculate-result';

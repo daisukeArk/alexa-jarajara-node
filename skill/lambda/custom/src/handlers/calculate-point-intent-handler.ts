@@ -6,6 +6,7 @@ import { ServiceFactory } from '../factories/service-factory';
 import { createUtterance } from '../factories/utterance-factory';
 import { LoggerFactory } from '../helpers/logger-factory';
 import { CalculatePointUtterance as Utterance } from '../utterances/calculate-point-utterance';
+import { UnhandledUtterance } from '../utterances/unhandled-utterance';
 
 /**
  * 点数計算 インテントハンドラ
@@ -15,7 +16,7 @@ export const CalculatePointIntentHandler: Ask.RequestHandler = {
    * 実行判定
    * @param handlerInput ハンドラ
    */
-  canHandle(handlerInput) {
+  canHandle(handlerInput: Ask.HandlerInput) {
     return (
       handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       handlerInput.requestEnvelope.request.intent.name === 'CalculatePointIntent'
@@ -25,12 +26,7 @@ export const CalculatePointIntentHandler: Ask.RequestHandler = {
    * ハンドラ実行
    * @param handlerInput ハンドラ
    */
-  handle(handlerInput) {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
-
-    // ログ出力
-    LoggerFactory.instance.trace(Util.inspect(handlerInput, { depth: null }));
-
+  handle(handlerInput: Ask.HandlerInput) {
     // スロット収拾が完了したか判定
     if (
       handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -50,9 +46,11 @@ export const CalculatePointIntentHandler: Ask.RequestHandler = {
     ) {
       // 未ハンドルインテントへ誘導
       // 完了していない場合、Alexaに委任する
+      const unhandled = createUtterance(UnhandledUtterance).respond();
+
       return handlerInput.responseBuilder
-        .speak(requestAttributes.t('UNHANDLED_MESSAGE') + requestAttributes.t('HELP_MESSAGE'))
-        .reprompt(requestAttributes.t('HELP_MESSAGE'))
+        .speak(unhandled.speech)
+        .reprompt(unhandled.repromptSpeech)
         .getResponse();
     }
 
@@ -61,56 +59,21 @@ export const CalculatePointIntentHandler: Ask.RequestHandler = {
     const fuNumber = getFu(handlerInput.requestEnvelope.request.intent.slots.Fu);
     const hanNumber = getHan(handlerInput.requestEnvelope.request.intent.slots.Han);
 
-    // 役割が未定義か判定
-    if (roleType === undefined) {
-      // レスポンス設定
-      return handlerInput.responseBuilder
-        .speak(requestAttributes.t('UNHANDLED_MESSAGE') + requestAttributes.t('HELP_ROLE_TYPE') + requestAttributes.t('RETRY'))
-        .reprompt(requestAttributes.t('HELP_MESSAGE'))
-        .getResponse();
-    }
-
-    // 符が未定義 もしくは ２０符未満 もしくは １１０を超える か判定
-    if (fuNumber === undefined || isNaN(fuNumber) || fuNumber < 20 || fuNumber > 110) {
-      // レスポンス設定
-      return handlerInput.responseBuilder
-        .speak(requestAttributes.t('UNHANDLED_MESSAGE') + requestAttributes.t('HELP_FU_NUMBER') + requestAttributes.t('RETRY'))
-        .reprompt(requestAttributes.t('HELP_MESSAGE'))
-        .getResponse();
-    }
-
-    // 翻が未定義 もしくは １３翻を超える か判定
-    if (hanNumber === undefined || hanNumber > 13) {
-      // レスポンス設定
-      return handlerInput.responseBuilder
-        .speak(requestAttributes.t('UNHANDLED_MESSAGE') + requestAttributes.t('HELP_HAN_NUMBER') + requestAttributes.t('RETRY'))
-        .reprompt(requestAttributes.t('HELP_MESSAGE'))
-        .getResponse();
-    }
-
-    // 点数計算
-    const result = ServiceFactory.CalculateService.calculate(fuNumber, hanNumber);
-
-    // 点数計算が失敗した場合
-    if (result === undefined) {
-      // レスポンス設定
-      return handlerInput.responseBuilder
-        .speak(requestAttributes.t('ERROR_CALCULATE'))
-        .reprompt(requestAttributes.t('HELP_MESSAGE'))
-        .getResponse();
-    }
-
-    // ログ出力
-    LoggerFactory.instance.trace(Util.inspect(result, { depth: null }));
-
     // 発話取得
-    const utteranceResult = createUtterance(Utterance).respond(handlerInput, roleType, result);
+    const utteranceResult = createUtterance(Utterance).respond(
+      ServiceFactory.CalculateService, fuNumber, hanNumber, roleType
+    );
 
     // レスポンス設定
-    return handlerInput.responseBuilder
-      .speak(utteranceResult.speech)
-      .withSimpleCard('点数のご案内', utteranceResult.cardContent)
-      .getResponse();
+    let responseBuilder = handlerInput.responseBuilder
+      .speak(utteranceResult.speech);
+
+    if (utteranceResult.cardTitle && utteranceResult.cardContent) {
+      responseBuilder = responseBuilder
+      .withSimpleCard(utteranceResult.cardTitle, utteranceResult.cardContent);
+    }
+
+    return responseBuilder.getResponse();
   }
 };
 

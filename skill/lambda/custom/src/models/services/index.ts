@@ -1,5 +1,1 @@
-import { CalculateService } from './calculate-service';
-
-export {
-  CalculateService
-};
+export { CalculateService } from './calculate-service';

@@ -1,14 +1,17 @@
-import * as Ask from 'ask-sdk-core';
 import { ISpeechOutputBase } from './domains/speech-output-base';
+import { ILanguageStrings } from './language-strings';
 
 /**
  * 発話基底クラス
  */
 export abstract class UtteranceBase {
+  protected languageStrings: ILanguageStrings;
+
   /**
    * コンストラクタ
    */
-  constructor() {
+  constructor(languageStrings: ILanguageStrings) {
+    this.languageStrings = languageStrings;
   }
 
   /**
@@ -16,5 +19,5 @@ export abstract class UtteranceBase {
    * @param handlerInput ハンドラコンテキスト
    * @param args 引数
    */
-  public abstract respond(handlerInput: Ask.HandlerInput, ...args: any[]): ISpeechOutputBase;
+  public abstract respond(...args: any[]): ISpeechOutputBase;
 }

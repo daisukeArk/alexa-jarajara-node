@@ -10,7 +10,7 @@ export const HelpIntentHandler: Ask.RequestHandler = {
    * 実行判定
    * @param handlerInput ハンドラ
    */
-  canHandle(handlerInput) {
+  canHandle(handlerInput: Ask.HandlerInput) {
     return (
       handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent'
@@ -20,9 +20,9 @@ export const HelpIntentHandler: Ask.RequestHandler = {
    * ハンドラ実行
    * @param handlerInput ハンドラ
    */
-  handle(handlerInput) {
+  handle(handlerInput: Ask.HandlerInput) {
     // 発話取得
-    const speechOutput = createUtterance(Utterance).respond(handlerInput);
+    const speechOutput = createUtterance(Utterance).respond();
 
     // レスポンス
     return handlerInput.responseBuilder

@@ -1,9 +1,10 @@
-import * as Ask from 'ask-sdk-core';
-import * as Domains from '../domains';
+import * as __ from 'underscore';
 import * as Enums from '../enums';
 import { toHanKana } from '../helpers/han-strings';
 import { LoggerFactory } from '../helpers/logger-factory';
+import { CalculateService } from '../models/services/calculate-service';
 import { ICalculatePointSpeechOutput as ISpeechOutput } from '../utterances/domains/calculate-point-speech-output';
+import { ILanguageStrings } from './language-strings';
 import { UtteranceBase } from './utterance-base';
 
 /**
@@ -12,24 +13,64 @@ import { UtteranceBase } from './utterance-base';
 export class CalculatePointUtterance extends UtteranceBase {
   /**
    * コンストラクタ
+   * @param languageStrings 発話セット
    */
-  constructor() {
-    super();
+  constructor(languageStrings: ILanguageStrings) {
+    super(languageStrings);
   }
 
   /**
    * 発話内容取得
-   * @param handlerInput ハンドラコンテキスト
+   * @param calculateService 計算サービス
+   * @param fuNumber 符
+   * @param hanNumber 翻
    * @param roleType 親(1) or 子(2)
-   * @param result 点数計算結果
    * @returns 発話内容
    */
   public respond(
-    handlerInput: Ask.HandlerInput,
-    roleType: Enums.RoleTypes,
-    result: Domains.ICalculateResult
+    calculateService: CalculateService,
+    fuNumber: number | undefined,
+    hanNumber: number | undefined,
+    roleType: Enums.RoleTypes | undefined
   ): ISpeechOutput {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
+    // 役割が未定義か判定
+    if (roleType === undefined) {
+      // レスポンス設定
+      return {
+        speech: this.languageStrings.ja.UNHANDLED_MESSAGE + this.languageStrings.ja.HELP_ROLE_TYPE + this.languageStrings.ja.RETRY,
+        repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
+      };
+    }
+
+    // 符が未定義 もしくは ２０符未満 もしくは １１０を超える か判定
+    if (fuNumber === undefined || isNaN(fuNumber) || fuNumber < 20 || fuNumber > 110) {
+      // レスポンス設定
+      return {
+        speech: this.languageStrings.ja.UNHANDLED_MESSAGE + this.languageStrings.ja.HELP_FU_NUMBER + this.languageStrings.ja.RETRY,
+        repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
+      };
+    }
+
+    // 翻が未定義 もしくは １３翻を超える か判定
+    if (hanNumber === undefined || hanNumber > 13) {
+      // レスポンス設定
+      return {
+        speech: this.languageStrings.ja.UNHANDLED_MESSAGE + this.languageStrings.ja.HELP_HAN_NUMBER + this.languageStrings.ja.RETRY,
+        repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
+      };
+    }
+
+    // 点数計算
+    const result = calculateService.calculate(fuNumber, hanNumber);
+
+    // 点数計算が失敗した場合
+    if (result === undefined) {
+      // レスポンス設定
+      return {
+        speech: this.languageStrings.ja.ERROR_CALCULATE,
+        repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
+      };
+    }
 
     let speech: any = '';
 
@@ -40,8 +81,7 @@ export class CalculatePointUtterance extends UtteranceBase {
     if (result.limitRuleType === Enums.LimitRuleTypes.None) {
       // ルール種別が設定されていない場合
 
-      speech += requestAttributes.t(
-        'ANSWER',
+      speech += __.template(this.languageStrings.ja.ANSWER)(
         {
           fuAlias: responseFu,
           fu: result.fu,
@@ -51,21 +91,22 @@ export class CalculatePointUtterance extends UtteranceBase {
       );
 
       if (roleType === Enums.RoleTypes.Parent) {
-        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', { point: result.basePointParent });
+        speech += __.template(this.languageStrings.ja.ANSWER_PARENT_TSUMO)({ point: result.basePointParent });
         if (result.ronPointParent > 0) {
-          speech += requestAttributes.t('ANSWER_LON', { point: result.ronPointParent });
+          speech += __.template(this.languageStrings.ja.ANSWER_LON)({ point: result.ronPointParent });
         }
       } else {
-        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', { pointParent: result.basePointParent, pointChildren: result.basePoint });
+        speech += __.template(this.languageStrings.ja.ANSWER_CHILD_TSUMO)(
+          { pointParent: result.basePointParent, pointChildren: result.basePoint }
+        );
         if (result.ronPoint > 0) {
-          speech += requestAttributes.t('ANSWER_LON', { point: result.ronPoint });
+          speech += __.template(this.languageStrings.ja.ANSWER_LON)({ point: result.ronPoint });
         }
       }
     } else {
       // ルール種別が設定されている場合(満貫以上)
 
-      speech += requestAttributes.t(
-        'ANSWER_LIMIT',
+      speech += __.template(this.languageStrings.ja.ANSWER_LIMIT)(
         {
           fuAlias: responseFu,
           fu: result.fu,
@@ -77,16 +118,19 @@ export class CalculatePointUtterance extends UtteranceBase {
       );
 
       if (roleType === Enums.RoleTypes.Parent) {
-        speech += requestAttributes.t('ANSWER_PARENT_TSUMO', { point: result.basePointParent });
-        speech += requestAttributes.t('ANSWER_LON', { point: result.ronPointParent });
+        speech += __.template(this.languageStrings.ja.ANSWER_PARENT_TSUMO)({ point: result.basePointParent });
+        speech += __.template(this.languageStrings.ja.ANSWER_LON)({ point: result.ronPointParent });
       } else {
-        speech += requestAttributes.t('ANSWER_CHILD_TSUMO', { pointParent: result.basePointParent, pointChildren: result.basePoint });
-        speech += requestAttributes.t('ANSWER_LON', { point: result.ronPoint });
+        speech += __.template(this.languageStrings.ja.ANSWER_CHILD_TSUMO)(
+          { pointParent: result.basePointParent, pointChildren: result.basePoint }
+        );
+        speech += __.template(this.languageStrings.ja.ANSWER_LON)({ point: result.ronPoint });
       }
     }
 
     return {
       speech: speech,
+      cardTitle: '点数のご案内',
       cardContent: String(speech).replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
     };
   }

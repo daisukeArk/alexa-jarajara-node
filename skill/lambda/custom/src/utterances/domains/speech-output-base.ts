@@ -15,7 +15,7 @@ export interface ISpeechOutputBase {
   /**
    * カードタイトル
    */
-  cardTitle?: string;
+  cardTitle?: any;
 
   /**
    * カード内容

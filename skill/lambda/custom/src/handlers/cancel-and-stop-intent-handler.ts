@@ -10,7 +10,7 @@ export const CancelAndStopIntentHandler: Ask.RequestHandler = {
    * 実行判定
    * @param handlerInput ハンドラ
    */
-  canHandle(handlerInput) {
+  canHandle(handlerInput: Ask.HandlerInput) {
     return (
       handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       (
@@ -23,9 +23,9 @@ export const CancelAndStopIntentHandler: Ask.RequestHandler = {
    * ハンドラ実行
    * @param handlerInput ハンドラ
    */
-  handle(handlerInput) {
+  handle(handlerInput: Ask.HandlerInput) {
     // 発話取得
-    const speechOutput = createUtterance(Utterance).respond(handlerInput);
+    const speechOutput = createUtterance(Utterance).respond();
 
     // レスポンス
     return handlerInput.responseBuilder

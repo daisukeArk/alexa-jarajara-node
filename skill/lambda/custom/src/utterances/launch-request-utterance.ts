@@ -1,5 +1,5 @@
-import * as Ask from 'ask-sdk-core';
 import { ILaunchRequestSpeechOutput } from './domains/launch-request-speech-output';
+import { ILanguageStrings } from './language-strings';
 import { UtteranceBase } from './utterance-base';
 
 /**
@@ -8,22 +8,20 @@ import { UtteranceBase } from './utterance-base';
 export class LaunchRequestUtterance extends UtteranceBase {
   /**
    * コンストラクタ
+   * @param languageStrings 発話セット
    */
-  constructor() {
-    super();
+  constructor(languageStrings: ILanguageStrings) {
+    super(languageStrings);
   }
 
   /**
    * 発話内容取得
-   * @param handlerInput ハンドラコンテキスト
    * @returns 発話内容
    */
-  public respond(handlerInput: Ask.HandlerInput): ILaunchRequestSpeechOutput {
-    const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
-
+  public respond(): ILaunchRequestSpeechOutput {
     return {
-      speech: requestAttributes.t('WELCOME'),
-      repromptSpeech: requestAttributes.t('HELP_MESSAGE')
+      speech: this.languageStrings.ja.WELCOME,
+      repromptSpeech: this.languageStrings.ja.HELP_MESSAGE
     };
   }
 }
